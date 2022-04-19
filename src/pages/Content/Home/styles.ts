@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,15 +8,19 @@ const styles = StyleSheet.create({
   },
   cameraWrapper: {
     width: '100%',
-    height: '80%',
+    height: '90%',
     zIndex: 1,
   },
   contentWrapper: {
     position: 'absolute',
     zIndex: 100,
     width: '100%',
-    height: '100%'
-  }
-})
+    height: '100%',
+  },
+  mainContent: {
+    flex: 1,
+    position: 'relative',
+  },
+});
 
-export default styles
+export default styles;
