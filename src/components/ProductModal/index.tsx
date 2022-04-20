@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Modal, TouchableWithoutFeedback, TouchableOpacity, Text } from 'react-native';
+import { View, Modal, TouchableWithoutFeedback, TouchableOpacity, Text, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Button from '../Button';
-
+import { theme } from '@mobile/theme';
+import CrateIcon from '../../assets/crate-icon.png';
 interface IModalProps {
-  visible: boolean;
-  children: React.ReactChildren;
+  visible?: boolean;
+  children?: React.ReactChildren;
   setVisible: (visible: boolean) => void;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   product?: models.Product;
 }
 
@@ -48,15 +49,20 @@ const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IMod
             alignSelf: 'center',
             borderRadius: 10,
             padding: 10,
-            width: '80%',
-            height: '60%',
+            width: '85%',
+            height: '67.5%',
             marginTop: '40%',
           }}>
           <View>
-            <View>
-              <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={() => setVisible(false)}>
-                <AntDesign name="closecircle" size={24} color="black" />
-              </TouchableOpacity>
+            <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => setVisible(false)}>
+              <AntDesign name="closecircle" size={24} color="#707070" />
+            </TouchableOpacity>
+            <View style={{ alignItems: 'center' }}>
+              <Image
+                source={CrateIcon}
+                style={{ width: 150, height: 150 }}
+                resizeMode={'contain'}
+              />
             </View>
             <View
               style={{
@@ -72,7 +78,13 @@ const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IMod
                   paddingVertical: 15,
                   paddingHorizontal: 10,
                 }}>
-                <Text style={{ fontSize: 20, fontWeight: '600', alignSelf: 'center' }}>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    fontFamily: theme.fonts.Bold,
+                    alignSelf: 'center',
+                    color: '#707070',
+                  }}>
                   Novo Pacote
                 </Text>
                 <View
@@ -91,14 +103,30 @@ const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IMod
                       justifyContent: 'space-between',
                       marginTop: '5%',
                     }}>
-                    <Text style={{ marginLeft: '5%', flexWrap: 'wrap', maxWidth: '30%' }}>
+                    <Text
+                      style={{
+                        marginLeft: '5%',
+                        flexWrap: 'wrap',
+                        maxWidth: '30%',
+                        fontFamily: theme.fonts.Regular,
+                        color: '#707070',
+                      }}>
                       {item.title}
                     </Text>
-                    <Text style={{ marginRight: '18%' }}>{item.value}</Text>
+                    <Text
+                      style={{
+                        marginRight: '20%',
+                        fontFamily: theme.fonts.Regular,
+                        color: '#707070',
+                      }}>
+                      {item.value}
+                    </Text>
                   </View>
                 ))}
               </View>
-              <Button label="Teste" />
+              <View style={{ alignItems: 'center', marginTop: '5%' }}>
+                <Button label="Enviar" />
+              </View>
             </View>
           </View>
         </View>

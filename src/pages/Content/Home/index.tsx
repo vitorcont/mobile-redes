@@ -11,9 +11,11 @@ const Home = () => {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      await Camera.requestCameraPermissionsAsync();
-    })();
+    try {
+      (async () => {
+        await Camera.requestCameraPermissionsAsync();
+      })();
+    } catch (error) {}
   }, []);
 
   return (
@@ -24,7 +26,7 @@ const Home = () => {
             name="qrcode-scan"
             size={80}
             color="white"
-            style={{ alignSelf: 'center', marginTop: '30%' }}
+            style={{ alignSelf: 'center', marginTop: '15%' }}
           />
         </View>
         <ProductModal
