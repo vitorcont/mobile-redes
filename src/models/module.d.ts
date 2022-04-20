@@ -43,3 +43,11 @@ export interface Pagination {
   offset?: number;
   limit?: number;
 }
+
+export interface Product {
+  id: string;
+  manufacturingDate: string;
+  expiringDate: string;
+  batch: string;
+  origin: string;
+}
