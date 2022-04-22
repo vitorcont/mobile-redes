@@ -8,7 +8,7 @@ import ProductModal from '@mobile/components/ProductModal';
 
 const Home = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -32,20 +32,19 @@ const Home = () => {
         </View>
         <ProductModal
           product={{
+            name: 'Picolé Sergel',
             batch: '1',
             expiringDate: '11/01/1997',
             manufacturingDate: '11/01/1997',
             id: '0',
             origin: 'Americana SP',
+            amount: 20,
           }}
           visible={visible}
           setVisible={setVisible}
         />
       </View>
-      <Camera
-        type={type}
-        style={styles.cameraWrapper}
-        onBarCodeScanned={(code) => console.log(code)}>
+      <Camera type={type} style={styles.cameraWrapper} onBarCodeScanned={() => setVisible(true)}>
         <BarcodeMask
           width={'85%'}
           height={'40%'}

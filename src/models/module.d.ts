@@ -45,9 +45,11 @@ export interface Pagination {
 }
 
 export interface Product {
+  name: string;
   id: string;
   manufacturingDate: string;
   expiringDate: string;
   batch: string;
   origin: string;
+  amount: number;
 }

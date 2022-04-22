@@ -18,7 +18,7 @@ interface IModalProps {
   setVisible: (visible: boolean) => void;
   onSubmit?: () => void;
   product?: models.Product;
-  text: string;
+  text?: string;
   setText?: (text: string) => void;
 }
 
@@ -103,7 +103,7 @@ const ProductModal = ({
                     alignSelf: 'center',
                     color: '#707070',
                   }}>
-                  Novo Pacote
+                  {product?.name}
                 </Text>
                 <View
                   style={{
