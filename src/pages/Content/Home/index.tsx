@@ -9,6 +9,7 @@ import ProductModal from '@mobile/components/ProductModal';
 const Home = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [visible, setVisible] = useState(true);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     try {

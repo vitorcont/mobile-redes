@@ -1,5 +1,13 @@
 import React from 'react';
-import { View, Modal, TouchableWithoutFeedback, TouchableOpacity, Text, Image } from 'react-native';
+import {
+  View,
+  Modal,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  Image,
+} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Button from '../Button';
 import { theme } from '@mobile/theme';
@@ -10,9 +18,19 @@ interface IModalProps {
   setVisible: (visible: boolean) => void;
   onSubmit?: () => void;
   product?: models.Product;
+  text: string;
+  setText?: (text: string) => void;
 }
 
-const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IModalProps) => {
+const ProductModal = ({
+  children,
+  setVisible,
+  visible,
+  onSubmit,
+  product,
+  setText,
+  text,
+}: IModalProps) => {
   const productData = [
     {
       title: 'ID:',
@@ -50,7 +68,7 @@ const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IMod
             borderRadius: 10,
             padding: 10,
             width: '85%',
-            height: '67.5%',
+            height: '72.5%',
             marginTop: '40%',
           }}>
           <View>
@@ -96,6 +114,37 @@ const ProductModal = ({ children, setVisible, visible, onSubmit, product }: IMod
                     marginVertical: '5%',
                   }}
                 />
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: '5%',
+                    marginBottom: '5%',
+                  }}>
+                  <Text
+                    style={{
+                      marginLeft: '5%',
+                      flexWrap: 'wrap',
+                      maxWidth: '30%',
+                      fontFamily: theme.fonts.Bold,
+                      color: '#707070',
+                    }}>
+                    Quantidade:
+                  </Text>
+                  <View>
+                    <TextInput
+                      style={{
+                        marginRight: '20%',
+                        fontFamily: theme.fonts.Regular,
+                        color: '#707070',
+                        fontSize: 20,
+                      }}
+                      placeholder="1"
+                      placeholderTextColor={'#707070'}></TextInput>
+                  </View>
+                </View>
+
                 {productData.map((item) => (
                   <View
                     style={{
