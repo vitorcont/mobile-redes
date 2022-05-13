@@ -1,15 +1,18 @@
-import { Camera } from 'expo-camera';
-import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
-import BarcodeMask from 'react-native-barcode-mask';
-import styles from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProductModal from '@mobile/components/ProductModal';
+import { listStock } from '@mobile/store/Stock/action';
+import { Camera } from 'expo-camera';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import BarcodeMask from 'react-native-barcode-mask';
+import { useDispatch } from 'react-redux';
+import styles from './styles';
 
 const Home = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -41,7 +44,10 @@ const Home = () => {
             amount: 20,
           }}
           visible={visible}
-          setVisible={setVisible}
+          setVisible={(value) => {
+            console.log("a")
+            dispatch(listStock());
+          }}
         />
       </View>
       <Camera type={type} style={styles.cameraWrapper} onBarCodeScanned={() => setVisible(true)}>

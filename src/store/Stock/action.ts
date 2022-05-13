@@ -1,12 +1,13 @@
+import { StorageItems } from '@mobile/enum/storage';
+import AuthAPI from '@mobile/repositories/auth';
+import StockAPI from '@mobile/repositories/stock';
+import navigationService from '@mobile/services/navigation';
 import StorageService from '@mobile/services/storage';
 import { Dispatch } from 'redux';
-
-import AuthAPI from '@mobile/repositories/auth';
-import navigationService from '@mobile/services/navigation';
-
-import { AUTH_LOGGED, AUTH_LOGIN, LOGOUT } from '../actionsType';
+import { AUTH_LOGIN, LOGOUT } from '../actionsType';
 import { startLoading, stopLoading } from '../Loading/action';
-import { StorageItems } from '@mobile/enum/storage';
+
+
 
 export const authenticate =
   (userData: models.LoginRequest) => async (dispatch: Dispatch) => {
@@ -34,6 +35,17 @@ export const recovery = (email: string) => async (dispatch: Dispatch) => {
     await AuthAPI.recovery(email);
   } catch (err) {
     //handleError
+  } finally {
+    dispatch(stopLoading());
+  }
+};
+
+export const listStock = () => async (dispatch: Dispatch) => {
+  dispatch(startLoading());
+  try {
+    await StockAPI.listStock();
+  } catch (err) {
+    console.log(err)
   } finally {
     dispatch(stopLoading());
   }
