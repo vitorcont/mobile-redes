@@ -10,7 +10,7 @@ import styles from './styles';
 
 const Home = () => {
   const [type, setType] = useState(Camera.Constants.Type.back);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
@@ -33,22 +33,25 @@ const Home = () => {
             style={{ alignSelf: 'center', marginTop: '15%' }}
           />
         </View>
-        <ProductModal
-          product={{
-            name: 'Picolé Sergel',
-            batch: '1',
-            expiringDate: '11/01/1997',
-            manufacturingDate: '11/01/1997',
-            id: '0',
-            origin: 'Americana SP',
-            amount: 20,
-          }}
-          visible={visible}
-          setVisible={(value) => {
-            console.log("a")
-            dispatch(listStock());
-          }}
-        />
+        {visible ? (
+          <ProductModal
+            product={{
+              name: 'Picolé Sergel',
+              batch: '1',
+              expiringDate: '11/01/1997',
+              manufacturingDate: '11/01/1997',
+              id: '0',
+              origin: 'Americana SP',
+              amount: 20,
+            }}
+            visible={visible}
+            setVisible={setVisible}
+            onSubmit={(value) => {
+              dispatch(listStock());
+              setVisible(false);
+            }}
+          />
+        ) : null}
       </View>
       <Camera type={type} style={styles.cameraWrapper} onBarCodeScanned={() => setVisible(true)}>
         <BarcodeMask

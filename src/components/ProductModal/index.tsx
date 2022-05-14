@@ -1,22 +1,22 @@
+import { AntDesign } from '@expo/vector-icons';
+import { theme } from '@mobile/theme';
 import React from 'react';
 import {
-  View,
+  Image,
   Modal,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   Text,
   TextInput,
-  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import Button from '../Button';
-import { theme } from '@mobile/theme';
 import CrateIcon from '../../assets/crate-icon.png';
+import Button from '../Button';
 interface IModalProps {
   visible?: boolean;
   children?: React.ReactChildren;
   setVisible: (visible: boolean) => void;
-  onSubmit?: () => void;
+  onSubmit: (visible: boolean) => void;
   product?: models.Product;
   text?: string;
   setText?: (text: string) => void;
@@ -59,8 +59,8 @@ const ProductModal = ({
       animationType="fade"
       visible={visible}
       transparent
-      onRequestClose={() => setVisible(false)}>
-      <TouchableWithoutFeedback onPress={() => setVisible(false)}>
+      onRequestClose={() => onSubmit(false)}>
+      <TouchableWithoutFeedback>
         <View
           style={{
             backgroundColor: '#FFF',
@@ -72,7 +72,10 @@ const ProductModal = ({
             marginTop: '40%',
           }}>
           <View>
-            <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={() => setVisible(false)}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={{ alignSelf: 'flex-start' }}
+              onPress={() => setVisible(false)}>
               <AntDesign name="closecircle" size={24} color="#707070" />
             </TouchableOpacity>
             <View style={{ alignItems: 'center' }}>
@@ -174,7 +177,7 @@ const ProductModal = ({
                 ))}
               </View>
               <View style={{ alignItems: 'center', marginTop: '5%' }}>
-                <Button label="Enviar" />
+                <Button label="Enviar" onPress={() => onSubmit(false)} />
               </View>
             </View>
           </View>

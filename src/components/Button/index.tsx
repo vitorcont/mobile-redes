@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { TouchableOpacity, Text, Animated, Image } from 'react-native';
 import { theme } from '@mobile/theme';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Image, Text, TouchableOpacity } from 'react-native';
 import CheckIcon from '../../assets/check-icon.png';
 
 interface IButtonProps {
   loading?: boolean;
-  onPress?: () => void;
+  onPress: () => void;
   label?: string;
 }
 
@@ -34,13 +34,19 @@ const Button = ({ loading, onPress, label }: IButtonProps) => {
         justifyContent: 'center',
       }}>
       <TouchableOpacity
-        onPress={() => setPressed(!pressed)}
+        onPress={async () => {
+          setPressed(!pressed);
+
+          setTimeout(() => {
+            onPress();
+          }, 1000);
+        }}
         activeOpacity={0.7}
         style={{
           width: '100%',
           height: '100%',
           borderRadius: pressed ? 120 : 16,
-          backgroundColor: '#00FF77',
+          backgroundColor: '#00B2FF',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
