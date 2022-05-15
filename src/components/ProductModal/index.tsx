@@ -4,11 +4,9 @@ import React from 'react';
 import {
   Image,
   Modal,
-  Text,
-  TextInput,
-  TouchableOpacity,
+  Text, TouchableOpacity,
   TouchableWithoutFeedback,
-  View,
+  View
 } from 'react-native';
 import CrateIcon from '../../assets/crate-icon.png';
 import Button from '../Button';
@@ -16,7 +14,7 @@ interface IModalProps {
   visible?: boolean;
   children?: React.ReactChildren;
   setVisible: (visible: boolean) => void;
-  onSubmit: (visible: boolean) => void;
+  onSubmit: () => void;
   product?: models.Product;
   text?: string;
   setText?: (text: string) => void;
@@ -35,6 +33,10 @@ const ProductModal = ({
     {
       title: 'ID:',
       value: product?.id,
+    },
+    {
+      title: 'Código:',
+      value: product?.code,
     },
     {
       title: 'Lote:',
@@ -59,7 +61,7 @@ const ProductModal = ({
       animationType="fade"
       visible={visible}
       transparent
-      onRequestClose={() => onSubmit(false)}>
+      onRequestClose={()=> setVisible(false)}>
       <TouchableWithoutFeedback>
         <View
           style={{
@@ -69,7 +71,7 @@ const ProductModal = ({
             padding: 10,
             width: '85%',
             height: '72.5%',
-            marginTop: '40%',
+            marginTop: '35%',
           }}>
           <View>
             <TouchableOpacity
@@ -136,15 +138,14 @@ const ProductModal = ({
                     Quantidade:
                   </Text>
                   <View>
-                    <TextInput
+                    <Text
                       style={{
                         marginRight: '20%',
                         fontFamily: theme.fonts.Regular,
                         color: '#707070',
                         fontSize: 20,
                       }}
-                      placeholder="1"
-                      placeholderTextColor={'#707070'}></TextInput>
+                    >{product?.amount}</Text>
                   </View>
                 </View>
 
@@ -177,7 +178,7 @@ const ProductModal = ({
                 ))}
               </View>
               <View style={{ alignItems: 'center', marginTop: '5%' }}>
-                <Button label="Enviar" onPress={() => onSubmit(false)} />
+                <Button label="Enviar" onPress={onSubmit} />
               </View>
             </View>
           </View>

@@ -1,28 +1,19 @@
-import { AUTH_LOGIN, AUTH_LOGGED } from '../actionsType';
+import { LOAD_PRODUCTS } from '../actionsType';
 
-export const initialState: reducers.AuthState = {
-  authenticated: {
-    accessToken: null,
-    refreshToken: null,
-  },
-  logged: false,
+export const initialState: reducers.StockState = {
+  products: []
 };
 
-export const authReducer = (state = initialState, action: any) => {
+export const stockReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case AUTH_LOGIN:
+    case LOAD_PRODUCTS:
       return {
         ...state,
-        authenticated: action.payload,
-      };
-    case AUTH_LOGGED:
-      return {
-        ...state,
-        logged: action.payload,
+        products: action.payload,
       };
     default:
       return state;
   }
 };
 
-export default authReducer;
+export default stockReducer;

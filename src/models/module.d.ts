@@ -44,12 +44,17 @@ export interface Pagination {
   limit?: number;
 }
 
+
 export interface Product {
-  name: string;
-  id: string;
-  manufacturingDate: string;
-  expiringDate: string;
-  batch: string;
-  origin: string;
-  amount: number;
+  id?: string;
+  name?: string;
+  code?: string;
+  batch?: string;
+  manufacturingDate?: string;
+  expiringDate?: string;
+  origin?: string;
+  amount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
+

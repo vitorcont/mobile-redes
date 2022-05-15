@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProductModal from '@mobile/components/ProductModal';
-import { listStock } from '@mobile/store/Stock/action';
+import { useReduxState } from '@mobile/hooks/useReduxState';
+import { listStock, updateStock } from '@mobile/store/Stock/action';
 import { Camera } from 'expo-camera';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
@@ -9,12 +10,29 @@ import { useDispatch } from 'react-redux';
 import styles from './styles';
 
 const Home = () => {
+  const { stock } = useReduxState();
+  const { products } = stock;
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [visible, setVisible] = useState(false);
-  const [text, setText] = useState('');
+  const [product, setProduct] = useState<models.Product | null>(null);
   const dispatch = useDispatch();
 
+  const onReadQRCode = (value: string) => {
+    const object = JSON.parse(value);
+    setProduct(object);
+    setVisible(true);
+  }
+
+  const onSumbit = () => {
+    console.log("AQUIII", products)
+    const foundProduct = products.find((item) => item.id === (product?.id ?? '0'));
+    const amount = (product?.amount ?? 0) + (foundProduct?.amount ?? 0);
+    dispatch(updateStock(product?.id ?? '', amount));
+    setVisible(false);
+  }
+
   useEffect(() => {
+    dispatch(listStock());
     try {
       (async () => {
         await Camera.requestCameraPermissionsAsync();
@@ -35,7 +53,7 @@ const Home = () => {
         </View>
         {visible ? (
           <ProductModal
-            product={{
+            product={product ?? {
               name: 'Picolé Sergel',
               batch: '1',
               expiringDate: '11/01/1997',
@@ -46,14 +64,11 @@ const Home = () => {
             }}
             visible={visible}
             setVisible={setVisible}
-            onSubmit={(value) => {
-              dispatch(listStock());
-              setVisible(false);
-            }}
+            onSubmit={onSumbit}
           />
         ) : null}
       </View>
-      <Camera type={type} style={styles.cameraWrapper} onBarCodeScanned={() => setVisible(true)}>
+      <Camera type={type} style={styles.cameraWrapper} onBarCodeScanned={(result) => onReadQRCode(result.data)}>
         <BarcodeMask
           width={'85%'}
           height={'40%'}
