@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-
-import authReducer from './Auth/reducer';
 import loadingReducer from './Loading/reducer';
+import stockReducer from './Stock/reducer';
+
 
 const reducers = combineReducers({
   loading: loadingReducer,
-  auth: authReducer,
+  stock: stockReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

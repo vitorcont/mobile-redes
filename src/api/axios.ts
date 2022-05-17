@@ -1,5 +1,3 @@
-import { StorageItems } from '@mobile/enum/storage';
-import StorageService from '@mobile/services/storage';
 import Axios, { AxiosError, AxiosResponse } from 'axios';
 
 export enum AxiosStatus {
@@ -16,19 +14,20 @@ const handler: IHandler = {
 };
 
 export const getInstance = async () => {
-  const accessToken = await StorageService.getItem(StorageItems.ACCESS_TOKEN);
-
   const axiosInstance = Axios.create({
-    baseURL: 'yourapi.com',
+    baseURL: 'https://9d1d-2804-14c-3b82-1c54-5cbf-f216-cc8e-414e.ngrok.io',
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
     },
-  })
+  });
 
   axiosInstance.interceptors.response.use(
-    (response: AxiosResponse) => response,
+    (response: AxiosResponse) => {
+      console.log(response);
+      
+      return response
+    },
     async (err: AxiosError) => {
       if (err.response?.status === AxiosStatus.Unauthorized) {
         handler.unauthorizedError();

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { createStack } from '@mobile/services/navigation';
+import Home from './Home';
 
 const ContentStack = () => {
   const Content = createStack();
@@ -8,9 +9,9 @@ const ContentStack = () => {
   return (
     <Content.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="Content"
+      initialRouteName="HomeScreen"
     >
-      <Content.Screen name="Content" component={() => <></>} />
+      <Content.Screen name="HomeScreen" component={Home} />
     </Content.Navigator>
   );
 };

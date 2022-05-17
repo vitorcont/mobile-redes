@@ -1,11 +1,7 @@
 export as namespace reducers;
 
-export interface AuthState {
-  authenticated: {
-    accessToken: string | null;
-    refreshToken: string | null;
-  };
-  logged: boolean;
+export interface StockState {
+  products: models.Product[]
 }
 
 export interface LoadingState {
@@ -16,5 +12,5 @@ export interface LoadingState {
 
 export interface ReduxState {
   loading: LoadingState;
-  auth: AuthState;
+  stock: StockState;
 }
